@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Harry Verity — AI training that gives your team their week back</title>
+<meta name="description" content="I train teams to do their repetitive work with AI. Former tech journalist, data-centre YouTuber, host of the weekly AI For Everyone meetup. Book a free 30-minute session." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --paper:#F4EFE6; --paper-2:#EFE8DB; --card:#FBF8F2; --ink:#111111;
+  --red:#D62828; --red-dark:#B71F1F; --grey:#8A8A8A; --muted:#3A3A3A; --line:#D9D1C0;
+  --maxw:1160px; --pad:24px;
+  --display:"Fraunces",Georgia,serif;
+  --body:"Inter",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+em{font-style:italic}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:500}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.04;letter-spacing:-.015em}
+.u-red{color:var(--red)}
+.u-muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--body);font-weight:600;font-size:.96rem;padding:.92em 1.6em;background:var(--ink);color:var(--paper);border-radius:100px;transition:transform .3s var(--ease),background .3s var(--ease);will-change:transform;cursor:pointer;border:none}
+.btn:hover{background:var(--red);transform:translateY(-2px)}
+.btn--red{background:var(--red)} .btn--red:hover{background:var(--red-dark)}
+.btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.6px var(--line)}
+.btn--ghost:hover{background:var(--ink);color:var(--paper);box-shadow:none}
+.btn--sm{padding:.62em 1.2em;font-size:.86rem}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .35s var(--ease),box-shadow .35s var(--ease);padding:14px 0}
+.nav.is-stuck{background:rgba(244,239,230,.86);backdrop-filter:saturate(180%) blur(14px);box-shadow:0 1px 0 var(--line)}
+.nav__inner{display:flex;align-items:center;justify-content:space-between}
+.nav__brand{display:flex;align-items:center;gap:.6rem;font-family:var(--display);font-weight:700;font-size:1.2rem}
+.nav__brand img{height:26px;width:auto}
+.nav__links{display:flex;align-items:center;gap:clamp(1rem,2.4vw,2.1rem)}
+.nav__links a:not(.btn){font-size:.92rem;font-weight:500;transition:color .2s}
+.nav__links a:not(.btn):hover{color:var(--red)}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:var(--paper-2)}
+.hero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);filter:saturate(1.05) brightness(1.02);z-index:0}
+.hero__scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(94deg,rgba(244,239,230,.97) 0%,rgba(244,239,230,.9) 40%,rgba(244,239,230,.55) 70%,rgba(244,239,230,.25) 100%),linear-gradient(0deg,rgba(244,239,230,.6) 0%,rgba(244,239,230,0) 34%)}
+.hero__content{position:relative;z-index:2;max-width:760px;padding:96px 0 40px}
+.hero__title{font-size:clamp(2.7rem,7.4vw,5.6rem);font-weight:900;line-height:.98;letter-spacing:-.025em;margin:1.1rem 0 1.4rem}
+.hero__lede{font-size:clamp(1.08rem,1.7vw,1.34rem);color:var(--muted);max-width:540px;margin-bottom:2.1rem}
+.hero__cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero__scroll{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;width:25px;height:40px;border:2px solid rgba(17,17,17,.3);border-radius:13px}
+.hero__scroll span{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:4px;height:8px;border-radius:2px;background:var(--red);animation:scroll 1.6s var(--ease) infinite}
+@keyframes scroll{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,13px)}}
+
+/* press strip */
+.press{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--card)}
+.press__inner{display:flex;align-items:center;gap:clamp(1.6rem,5vw,3.4rem);flex-wrap:wrap;padding:20px 0}
+.press__label{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+.press__logos{display:flex;align-items:center;gap:clamp(1.4rem,4vw,3rem);flex-wrap:wrap}
+.press__logos img{height:22px;width:auto;opacity:.62;filter:grayscale(1);transition:opacity .25s,filter .25s}
+.press__logos img:hover{opacity:1;filter:none}
+
+/* sections */
+section{padding:clamp(4.5rem,9vw,7.5rem) 0}
+.sec-head{max-width:660px;margin-bottom:clamp(2.2rem,4vw,3.4rem)}
+.sec-head h2{font-size:clamp(2rem,4.6vw,3.3rem);margin-top:.8rem}
+.sec-head p{color:var(--muted);font-size:1.1rem;margin-top:1rem}
+
+/* problem */
+.problem h2{font-size:clamp(2.1rem,5vw,3.6rem);max-width:18ch}
+.problem .examples{font-family:var(--display);font-style:italic;font-size:clamp(1.2rem,2vw,1.5rem);color:var(--ink);max-width:30ch;margin:1.6rem 0 1.6rem;line-height:1.3}
+.problem p.body{color:var(--muted);font-size:1.12rem;max-width:54ch}
+.problem p.body+p.body{margin-top:1rem}
+
+/* dark offer */
+.offer{background:var(--ink);color:var(--paper)}
+.offer .eyebrow{color:#ff6f6f}
+.offer h2{color:#fff;font-size:clamp(2rem,4.6vw,3.3rem);max-width:20ch;margin-top:.8rem}
+.offer p{color:#d6cfc2;font-size:1.14rem;max-width:55ch;margin-top:1.2rem}
+.offer .btn{margin-top:2rem}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 28px}
+.step__n{font-family:var(--display);font-weight:700;font-size:2.4rem;color:var(--red);line-height:1}
+.step h3{font-size:1.3rem;margin:.9rem 0 .5rem}
+.step p{color:var(--muted);font-size:1rem}
+
+/* videos */
+.vids{background:var(--paper-2)}
+.vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.vid{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.vid:hover{transform:translateY(-4px);box-shadow:0 18px 40px -24px rgba(0,0,0,.4)}
+.vid__thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
+.vid__thumb img{width:100%;height:100%;object-fit:cover}
+.vid__play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center}
+.vid__play::after{content:"";border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:3px}
+.vid__body{padding:18px 20px 22px}
+.vid__body h3{font-size:1.08rem;line-height:1.2}
+.vid__meta{font-family:var(--mono);font-size:.72rem;color:var(--grey);margin-top:8px;letter-spacing:.03em}
+
+/* cutting edge band */
+.edge{background:var(--ink);color:var(--paper)}
+.edge .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.edge .eyebrow{color:#ff6f6f}
+.edge h2{color:#fff;font-size:clamp(1.9rem,4vw,2.9rem);margin-top:.7rem}
+.edge p{color:#d6cfc2;font-size:1.1rem;margin-top:1.1rem}
+.edge__logos{display:flex;gap:1.6rem;align-items:center;margin-top:1.8rem;flex-wrap:wrap}
+.edge__logos img{height:24px;opacity:.8;filter:brightness(0) invert(1)}
+.edge__media{aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 24px 60px -28px rgba(0,0,0,.7)}
+.edge__media video{width:100%;height:100%;object-fit:cover}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.stat{background:var(--card);padding:28px 24px;text-align:center}
+.stat strong{display:block;font-family:var(--display);font-weight:900;font-size:clamp(2rem,4vw,2.9rem);color:var(--red);line-height:1}
+.stat span{font-size:.86rem;color:var(--muted);margin-top:.5rem;display:block}
+
+/* testimonials */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.quote{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column}
+.quote--feat{grid-column:span 2;background:#fff}
+.quote__mark{font-family:var(--display);font-weight:700;color:var(--red);font-size:2.6rem;line-height:.5;height:.5em}
+.quote blockquote{font-family:var(--display);font-weight:600;font-size:1.18rem;line-height:1.32;margin:1rem 0;flex:1}
+.quote--feat blockquote{font-size:1.5rem}
+.quote__body{color:var(--muted);font-size:.96rem;margin-bottom:1.1rem;line-height:1.55}
+.quote__who{display:flex;align-items:center;gap:12px;margin-top:auto}
+.quote__who img,.quote__init{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:none}
+.quote__init{background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:1rem;font-family:var(--display)}
+.quote__name{font-weight:600;font-size:.95rem}
+.quote__role{font-size:.82rem;color:var(--grey)}
+.quote__role b{color:var(--ink);font-weight:600}
+
+/* guides */
+.guides .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.guides h2{font-size:clamp(2rem,4.4vw,3.1rem);margin-top:.7rem}
+.guides p{color:var(--muted);font-size:1.1rem;margin-top:1rem;max-width:46ch}
+.signup{display:flex;gap:10px;margin-top:1.8rem;flex-wrap:wrap}
+.signup input{flex:1;min-width:200px;padding:.9em 1.2em;border:1.6px solid var(--line);border-radius:100px;font-family:var(--body);font-size:.95rem;background:var(--card)}
+.signup input:focus{outline:none;border-color:var(--red)}
+.guides__card{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:var(--ink);box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+.guides__card img{width:100%;height:100%;object-fit:cover;opacity:.92}
+.guides__tag{position:absolute;left:18px;bottom:18px;font-family:var(--mono);font-size:.72rem;background:var(--red);color:#fff;padding:.4em 1em;border-radius:100px;letter-spacing:.04em}
+
+/* meetup */
+.meetup{background:var(--paper-2)}
+.meetup .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.meetup__media{aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 24px 60px -30px rgba(0,0,0,.5)}
+.meetup__media video{width:100%;height:100%;object-fit:cover}
+.meetup h2{font-size:clamp(2rem,4.4vw,3.1rem);margin-top:.7rem}
+.meetup p{color:var(--muted);font-size:1.1rem;margin-top:1rem;max-width:48ch}
+.meetup p+p{margin-top:.8rem}
+
+/* ladder */
+.ladder{border-top:1px solid var(--line);margin-top:1rem}
+.rung{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:26px 4px;border-bottom:1px solid var(--line)}
+.rung__l h3{font-size:1.3rem}
+.rung__l p{color:var(--muted);font-size:1rem;margin-top:5px;max-width:52ch}
+.rung__price{font-family:var(--mono);font-size:1.05rem;font-weight:500;white-space:nowrap}
+.rung__price.free{color:var(--red)}
+
+/* about */
+.about{background:var(--ink);color:var(--paper)}
+.about .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.about__photo{border-radius:18px;overflow:hidden;box-shadow:0 24px 60px -30px rgba(0,0,0,.7)}
+.about .eyebrow{color:#ff6f6f}
+.about h2{color:#fff;font-size:clamp(2rem,4.4vw,3rem);margin-top:.7rem}
+.about p{color:#d6cfc2;font-size:1.12rem;margin-top:1.2rem}
+
+/* final cta */
+.final{text-align:center}
+.final h2{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;max-width:16ch;margin:.8rem auto 0;line-height:1}
+.final .btn{margin-top:2rem;font-size:1.05rem;padding:1.05em 2em}
+.final__mail{display:block;margin-top:1.4rem;font-family:var(--mono);font-size:.9rem;color:var(--grey)}
+
+/* footer */
+.footer{padding:34px 0;border-top:1px solid var(--line)}
+.footer__inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer__brand{display:flex;align-items:center;gap:.6rem;font-family:var(--display);font-weight:700}
+.footer__brand img{height:24px}
+.footer__links{display:flex;gap:1.5rem;font-size:.9rem;color:var(--muted)}
+.footer__links a:hover{color:var(--red)}
+.footer__copy{font-family:var(--mono);font-size:.74rem;color:var(--grey)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.is-in{opacity:1;transform:none}
+
+@media(max-width:860px){
+  .nav__links a:not(.btn){display:none}
+  .steps,.vid-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .tgrid{grid-template-columns:1fr}
+  .quote--feat{grid-column:span 1}
+  .edge .wrap,.guides .wrap,.meetup .wrap,.about .wrap{grid-template-columns:1fr}
+  .edge__media,.about__photo{order:-1}
+  .hero__scrim{background:linear-gradient(0deg,rgba(244,239,230,.97) 16%,rgba(244,239,230,.6) 56%,rgba(244,239,230,.2) 100%)}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.reveal{opacity:1;transform:none;transition:none}.hero__scroll span,.hero__bg{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a href="#top" class="nav__brand"><img src="assets/brand/hv-logo.svg" alt="Harry Verity" onerror="this.style.display='none'"> Harry&nbsp;Verity</a>
+    <nav class="nav__links">
+      <a href="#videos">Videos</a>
+      <a href="#proof">Testimonials</a>
+      <a href="#meetup">Meetup</a>
+      <a href="#work">Work with me</a>
+      <a href="#book" class="btn btn--sm btn--red">Book a free session</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <video class="hero__bg" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg">
+      <source src="assets/hero.webm" type="video/webm">
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero__scrim"></div>
+    <div class="wrap">
+      <div class="hero__content reveal">
+        <p class="eyebrow">AI training for teams</p>
+        <h1 class="hero__title">Give your team their <span class="u-red">week</span> back.</h1>
+        <p class="hero__lede">I help teams do their repetitive work with AI — the chasing, the drafting, the admin — so the hours go where they actually matter.</p>
+        <div class="hero__cta">
+          <a href="#book" class="btn btn--red">Book a free 30-minute session</a>
+          <a href="#videos" class="btn btn--ghost">Watch how I work</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll"><span></span></div>
+  </section>
+
+  <!-- PRESS -->
+  <div class="press">
+    <div class="wrap press__inner">
+      <span class="press__label">Words in</span>
+      <div class="press__logos">
+        <img src="assets/logos/the-guardian.svg" alt="The Guardian">
+        <img src="assets/logos/the-independent.svg" alt="The Independent">
+        <img src="assets/logos/the-decoder.png" alt="The Decoder">
+        <span class="press__label">·&nbsp;&nbsp;Builds with</span>
+        <img src="assets/logos/gcore.svg" alt="Gcore">
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="wrap reveal">
+      <p class="eyebrow">The problem</p>
+      <h2>Your best people are doing your most repetitive work.</h2>
+      <p class="examples">Loan applications retyped from scratch. Listing copy from a blank page. The same emails, reports and follow-ups — every week.</p>
+      <p class="body">It's not that your team is slow. It's that nobody's shown them how AI actually does this work — properly, on your tools, with your data. Not "ask a chatbot a question." A routine that just <em>does the task</em>.</p>
+      <p class="body">That's what I teach.</p>
+    </div>
+  </section>
+
+  <!-- FREE OFFER -->
+  <section class="offer">
+    <div class="wrap reveal">
+      <p class="eyebrow">Start here — free</p>
+      <h2>Send me one workflow. I'll show you how to automate it — live.</h2>
+      <p>Pick one task that eats your team's time every week. Before our call I'll map how a Claude routine handles it, and in 30 minutes I'll walk you — and whoever owns the task — through exactly how it'd run. No deck. No pitch. You leave with one task solved.</p>
+      <a href="#book" class="btn btn--red">Book your free session</a>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">How it works</p>
+        <h2>Three steps, one solved task.</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><div class="step__n">1</div><h3>You send one workflow</h3><p>The task your team most wishes would do itself.</p></div>
+        <div class="step reveal"><div class="step__n">2</div><h3>I show you it running</h3><p>Live, on a 30-minute call, built as a Claude routine.</p></div>
+        <div class="step reveal"><div class="step__n">3</div><h3>If it lands, we go wider</h3><p>I train your whole team to build and run these themselves.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section class="vids" id="videos">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">From the channel</p>
+        <h2>I publish everything I learn.</h2>
+        <p>No paywall on the useful stuff. A few recent ones —</p>
+      </div>
+      <div class="vid-grid">
+        <a class="vid reveal" href="https://www.youtube.com/watch?v=OZD3YAH4y2w" target="_blank" rel="noopener">
+          <div class="vid__thumb"><img src="https://i.ytimg.com/vi/OZD3YAH4y2w/hqdefault.jpg" alt=""><div class="vid__play"></div></div>
+          <div class="vid__body"><h3>Stop Typing Into Claude Like It's Google</h3><div class="vid__meta">SHORT · The biggest mistake in offices</div></div>
+        </a>
+        <a class="vid reveal" href="https://www.youtube.com/watch?v=V8glrcfamG0" target="_blank" rel="noopener">
+          <div class="vid__thumb"><img src="https://i.ytimg.com/vi/V8glrcfamG0/hqdefault.jpg" alt=""><div class="vid__play"></div></div>
+          <div class="vid__body"><h3>The Complete Claude Skills Guide</h3><div class="vid__meta">44 MIN · Skills &amp; routines, end to end</div></div>
+        </a>
+        <a class="vid reveal" href="https://www.youtube.com/watch?v=lTdH5qnnnXo" target="_blank" rel="noopener">
+          <div class="vid__thumb"><img src="https://i.ytimg.com/vi/lTdH5qnnnXo/hqdefault.jpg" alt=""><div class="vid__play"></div></div>
+          <div class="vid__body"><h3>AI Is Not Taking Your Job. Here's Why.</h3><div class="vid__meta">VIDEO · What actually changes for you</div></div>
+        </a>
+      </div>
+      <div style="margin-top:2rem" class="reveal"><a href="https://www.youtube.com/@harryverity" target="_blank" rel="noopener" class="btn btn--ghost">See the channel →</a></div>
+    </div>
+  </section>
+
+  <!-- CUTTING EDGE -->
+  <section class="edge">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">At the cutting edge</p>
+        <h2>This isn't theory. I do it all day, in public.</h2>
+        <p>I host the YouTube channel for Gcore — a global data-centre and AI-infrastructure company — explaining the frontier of AI to the people building on it. The rest of the week I publish what I'm building: Claude routines, agent workflows, automation experiments. By the time I teach it, I've already run it.</p>
+        <div class="edge__logos">
+          <img src="assets/logos/gcore.svg" alt="Gcore">
+          <img src="assets/logos/the-decoder.png" alt="The Decoder">
+        </div>
+      </div>
+      <div class="edge__media reveal">
+        <video autoplay muted loop playsinline preload="auto"><source src="assets/broll/spinning-brain.mp4" type="video/mp4"></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section style="padding-bottom:0">
+    <div class="wrap">
+      <div class="stats reveal">
+        <div class="stat"><strong>85%</strong><span>inquiry-handling time cut for one firm</span></div>
+        <div class="stat"><strong>$500k</strong><span>annual revenue a client scaled to</span></div>
+        <div class="stat"><strong>200+</strong><span>videos teaching AI for work</span></div>
+        <div class="stat"><strong>Weekly</strong><span>live AI For Everyone meetup</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="proof">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">What people say</p>
+        <h2>From founders, engineers and people at OpenAI &amp; Visa.</h2>
+      </div>
+      <div class="tgrid">
+        <div class="quote quote--feat reveal">
+          <div class="quote__mark">"</div>
+          <blockquote>He turned our new hire into one of the most effective and productive assistants we've ever had.</blockquote>
+          <p class="quote__body">Harry got to grips with my business straight away — I own 30+ property investments and run multiple companies. He showed me how AI manages it more effectively, gave us back time, and trained our new employee to use AI tools from day one.</p>
+          <div class="quote__who"><div class="quote__init">J</div><div><div class="quote__name">James</div><div class="quote__role">Property investor &amp; multi-company owner</div></div></div>
+        </div>
+        <div class="quote reveal">
+          <div class="quote__mark">"</div>
+          <blockquote>An inspiring experience. Harry knows how to frame the picture around any challenge.</blockquote>
+          <p class="quote__body">He has an exceptional ability to lean in and quickly grasp complex AI concepts, from the foundational mathematics to advanced technologies.</p>
+          <div class="quote__who"><img src="assets/headshots/kanish-gosain.jpg" alt=""><div><div class="quote__name">Kanish Gosain</div><div class="quote__role">Member of Technical Staff, <b>OpenAI</b></div></div></div>
+        </div>
+        <div class="quote reveal">
+          <div class="quote__mark">"</div>
+          <blockquote>Harry's advice was one of the key factors in driving us to over $500,000 in annual revenue.</blockquote>
+          <p class="quote__body">His wisdom in the latest AI tools and strategies has enabled us to take on more clients at Stack Optimize, our lead-generation business.</p>
+          <div class="quote__who"><img src="assets/headshots/penn-felix-frank.jpg" alt=""><div><div class="quote__name">Penn &amp; Felix Frank</div><div class="quote__role">Founders, <b>Stack Optimize</b></div></div></div>
+        </div>
+        <div class="quote reveal">
+          <div class="quote__mark">"</div>
+          <blockquote>A brilliant and charismatic pillar of the AI community. Could not recommend his services more.</blockquote>
+          <p class="quote__body">It's a pleasure to speak with him about business, AI, travel and professional writing alike.</p>
+          <div class="quote__who"><img src="assets/headshots/william-littlefield-iii.png" alt=""><div><div class="quote__name">William Littlefield III</div><div class="quote__role">Chief Software Engineer, <b>Visa</b></div></div></div>
+        </div>
+        <div class="quote reveal">
+          <div class="quote__mark">"</div>
+          <blockquote>A game-changer, especially for us in the property business.</blockquote>
+          <p class="quote__body">They don't just give generic tips — they get into the nitty-gritty of what your business is about, and they're refreshingly upfront about everything.</p>
+          <div class="quote__who"><img src="assets/headshots/hadyn-evans.jpg" alt=""><div><div class="quote__name">Hadyn Evans</div><div class="quote__role">CEO, <b>Bluesky Property</b></div></div></div>
+        </div>
+        <div class="quote reveal">
+          <div class="quote__mark">"</div>
+          <blockquote>Makes you want to go home and rebuild your entire AI workflow from scratch… in a good way.</blockquote>
+          <p class="quote__body">The kind of person you want to learn from if you care about where AI is actually going.</p>
+          <div class="quote__who"><div class="quote__init">T</div><div><div class="quote__name">Teodora Miscov</div><div class="quote__role">Neuromarketer · "30 Under 30", B2B Marketing UK</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIDES -->
+  <section class="guides">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Free guides</p>
+        <h2>Take the guides. They're free.</h2>
+        <p>Field guides for people who want to do this themselves — like <em>Build a Second Brain with Claude</em>. Drop your email and I'll send them over, plus new ones as I write them. No spam, unsubscribe whenever.</p>
+        <form class="signup" onsubmit="return false">
+          <input type="email" placeholder="you@company.com" aria-label="Email address" required>
+          <button class="btn btn--red" type="submit">Send me the guides</button>
+        </form>
+      </div>
+      <div class="guides__card reveal">
+        <img src="assets/broll/second-brain-repo.png" alt="Build a Second Brain with Claude">
+        <span class="guides__tag">Free guide · Second Brain</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEETUP -->
+  <section class="meetup" id="meetup">
+    <div class="wrap">
+      <div class="meetup__media reveal">
+        <video autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg"><source src="assets/hero.webm" type="video/webm"><source src="assets/hero.mp4" type="video/mp4"></video>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">AI For Everyone</p>
+        <h2>Every week, I host a room full of people figuring this out.</h2>
+        <p>AI For Everyone is my weekly meetup — founders, engineers, operators and the AI-curious, swapping what's actually working. It's free, it's open, and it's the most fun hour of my week.</p>
+        <p>If you're ever in town, come along.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Ways to work with me</p>
+        <h2>Start free. Go as deep as you like.</h2>
+      </div>
+      <div class="ladder reveal">
+        <div class="rung"><div class="rung__l"><h3>Free 30-min session</h3><p>One workflow, shown live. The place to start.</p></div><div class="rung__price free">Free</div></div>
+        <div class="rung"><div class="rung__l"><h3>Remote team workshop</h3><p>A half-day with your team, built on your real tasks.</p></div><div class="rung__price">£1,500</div></div>
+        <div class="rung"><div class="rung__l"><h3>Training programme</h3><p>Multiple sessions, a recorded library, your team learns to build their own.</p></div><div class="rung__price">from £3,000</div></div>
+        <div class="rung"><div class="rung__l"><h3>On-site</h3><p>I come to you. All-in regional pricing — no expense receipts to chase.</p></div><div class="rung__price">on request</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="wrap">
+      <div class="about__photo reveal"><img src="assets/harry-verity-site-photo.jpg" alt="Harry Verity"></div>
+      <div class="reveal">
+        <p class="eyebrow">About</p>
+        <h2>Hi, I'm Harry.</h2>
+        <p>I'm a former tech journalist who got obsessed with what these tools can actually do, then started building with them every day. I run the YouTube channel for a global data-centre company, host AI For Everyone every week, and spend the rest of my time teaching teams to hand their busywork to AI.</p>
+        <p>My whole thing: fun and accessible, while being across the detail. No jargon, no hype — just your work, done faster.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final" id="book">
+    <div class="wrap reveal">
+      <p class="eyebrow">One workflow. Thirty minutes. Free.</p>
+      <h2>See your team's week, handed back.</h2>
+      <a href="https://calendly.com/harry-verity/intro" target="_blank" rel="noopener" class="btn btn--red">Book a free 30-minute session</a>
+      <span class="final__mail">or email hello@harry-verity.xyz</span>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <a href="#top" class="footer__brand"><img src="assets/brand/hv-logo.svg" alt="" onerror="this.style.display='none'"> Harry Verity</a>
+    <div class="footer__links">
+      <a href="https://www.youtube.com/@harryverity" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.linkedin.com/in/harry-verity" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/verity_harry" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <span class="footer__copy">© 2026 Harry Verity</span>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('is-stuck',scrollY>40),{passive:true});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
