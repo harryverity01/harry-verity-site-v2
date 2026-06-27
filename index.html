@@ -135,6 +135,13 @@ section{padding:clamp(4.5rem,9vw,7.5rem) 0}
 .stat span{font-size:.86rem;color:var(--muted);margin-top:.5rem;display:block}
 
 /* testimonials */
+.vproof{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(1.4rem,3.5vw,2.6rem);align-items:center;margin-bottom:24px}
+.vproof__media{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+.vproof__media video{width:100%;height:100%;object-fit:cover;display:block}
+.vproof__tag{position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:.68rem;background:var(--red);color:#fff;padding:.35em .9em;border-radius:100px;letter-spacing:.05em;pointer-events:none}
+.vproof blockquote{font-family:var(--display);font-weight:600;font-size:clamp(1.35rem,2.3vw,1.85rem);line-height:1.26;margin:.5rem 0 1rem}
+.vproof .quote__body{color:var(--muted);font-size:.96rem;line-height:1.55;margin-bottom:1.1rem}
+@media(max-width:860px){.vproof{grid-template-columns:1fr}}
 .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .quote{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column}
 .quote--feat{grid-column:span 2;background:#fff}
@@ -362,6 +369,20 @@ section{padding:clamp(4.5rem,9vw,7.5rem) 0}
       <div class="sec-head reveal">
         <p class="eyebrow">What people say</p>
         <h2>From founders, engineers and people at OpenAI &amp; Visa.</h2>
+      </div>
+      <div class="vproof reveal">
+        <div class="vproof__media">
+          <span class="vproof__tag">Client story</span>
+          <video controls preload="none" playsinline poster="assets/testimonials/abel-testimonial-poster.jpg">
+            <source src="assets/testimonials/abel-testimonial.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="vproof__text">
+          <div class="quote__mark">"</div>
+          <blockquote>I just leave you my computer — and you do it.</blockquote>
+          <p class="quote__body">Abel runs a wealth-management business with no lead system. We built him an AI scraper that delivers qualified leads daily and wired Claude into his YouTube analytics — and he understands every piece of it. "You're an AI coach, but you're not trying to cheat the system."</p>
+          <div class="quote__who"><div class="quote__init">A</div><div><div class="quote__name">Abel Rabérin</div><div class="quote__role">International Wealth Manager</div></div></div>
+        </div>
       </div>
       <div class="tgrid">
         <div class="quote quote--feat reveal">
